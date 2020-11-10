@@ -21,30 +21,33 @@ public class ProjectServiceImpl implements ProjectService {
     private final ProjectRepository projectRepository;
     private final ModelMapper modelMapper;
 
-
-    public ProjectServiceImpl(ProjectRepository projectRepository,
-                              ModelMapper modelMapper) {
+    public ProjectServiceImpl(ProjectRepository projectRepository, ModelMapper modelMapper) {
         this.projectRepository = projectRepository;
         this.modelMapper = modelMapper;
     }
 
     @Override
-    public Project save(Project project) {
+    public ProjectDto save(ProjectDto projectDto) {
+        Project projectCheck = projectRepository.getByProjectCode(projectDto.getProjectCode());
 
-        if(project.getProjectCode() == null){
-            throw new IllegalArgumentException("Project code cannot be null");
+        if(projectCheck != null ){
+            throw new IllegalArgumentException("Project code already exists");
         }
 
-        return projectRepository.save(project);
+        Project project = modelMapper.map(projectDto, Project.class);
+        project = projectRepository.save(project);
+        projectDto.setId(project.getId());
+        return projectDto;
     }
 
     @Override
-    public Project getById(Long id) {
-        return projectRepository.getOne(id);
+    public ProjectDto getById(Long id) {
+        Project project = projectRepository.getOne(id);
+        return modelMapper.map( project, ProjectDto.class);
     }
 
     @Override
-    public List<Project> getByProjectCode(String projectCode) {
+    public Project getByProjectCode(String projectCode) {
         return projectRepository.getByProjectCode(projectCode);
     }
 
@@ -63,5 +66,28 @@ public class ProjectServiceImpl implements ProjectService {
     public Boolean delete(Project project) {
         projectRepository.delete(project);
         return Boolean.TRUE;
+    }
+
+    public Boolean delete(Long id) {
+        projectRepository.deleteById(id);
+        return Boolean.TRUE;
+    }
+
+    @Override
+    public ProjectDto update(Long id, ProjectDto projectDto) {
+        Project projectDb = projectRepository.getOne(id);
+
+        if(projectDb == null ){
+            throw new IllegalArgumentException("Project does not exist id: " + id);
+        }
+
+        Project projectCheck = projectRepository.getByProjectCodeAndIdNot(projectDto.getProjectCode(), id);
+        if(projectCheck != null){
+            throw new IllegalArgumentException("Project code already exists");
+        }
+        projectDb.setProjectCode( projectDto.getProjectCode() );
+        projectDb.setProjectName( projectDto.getProjectName() );
+
+        return modelMapper.map( projectRepository.save(projectDb), ProjectDto.class);
     }
 }

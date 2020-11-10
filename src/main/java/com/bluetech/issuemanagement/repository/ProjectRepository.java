@@ -12,7 +12,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
-    List<Project> getByProjectCode(String projectCode);
+    Project getByProjectCode(String projectCode);
+
+    Project getByProjectCodeAndIdNot(String projectCode, Long id);
 
     List<Project> getByProjectCodeContains(String projectCode);
 
