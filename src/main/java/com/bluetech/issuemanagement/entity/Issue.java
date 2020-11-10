@@ -37,7 +37,7 @@ public class Issue extends BaseEntity{
     private Long id;
 
     @Column(name = "description", length = 1000)
-    private String desctiption;
+    private String description;
 
     @Column(name = "details", length = 4000)
     private String details;

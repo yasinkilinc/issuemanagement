@@ -26,7 +26,6 @@ public class IssueServiceImpl implements IssueService {
         this.modelMapper = modelMapper;
     }
 
-
     @Override
     public IssueDto save(IssueDto issue) {
         if(issue.getDate() == null){
@@ -39,7 +38,8 @@ public class IssueServiceImpl implements IssueService {
 
     @Override
     public IssueDto getById(Long id) {
-        return null;
+        Issue issue = issueRepository.getOne(id);
+        return modelMapper.map( issue, IssueDto.class);
     }
 
     @Override
@@ -50,7 +50,27 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public Boolean delete(IssueDto issue) {
+    public Boolean delete(Long id) {
+        issueRepository.deleteById(id);
+        return Boolean.TRUE;
+    }
+
+    @Override
+    public IssueDto update(Long id, IssueDto project) {
+        Issue issueDb = issueRepository.getOne(id);
+
+        if(issueDb == null ){
+            throw new IllegalArgumentException("Issue does not exist id: " + id);
+        }
+
+//        Project projectCheck = issueRepository.getById(projectDto.getProjectCode(), id);
+//        if(projectCheck != null){
+//            throw new IllegalArgumentException("Project code already exists");
+//        }
+//        issueDb.setProjectCode( projectDto.getProjectCode() );
+//        issueDb.setProjectName( projectDto.getProjectName() );
+
+//        return modelMapper.map( projectRepository.save(projectDb), ProjectDto.class);
         return null;
     }
 }

@@ -1,7 +1,7 @@
 package com.bluetech.issuemanagement.api;
 
-import com.bluetech.issuemanagement.dto.ProjectDto;
-import com.bluetech.issuemanagement.service.impl.ProjectServiceImpl;
+import com.bluetech.issuemanagement.dto.IssueDto;
+import com.bluetech.issuemanagement.service.impl.IssueServiceImpl;
 import com.bluetech.issuemanagement.util.ApiPaths;
 import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -18,34 +18,34 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by yasinkilinc on 10.11.2020
  */
 @RestController
-@RequestMapping(ApiPaths.ProjectCtrl.CTRL)
-public class ProjectController {
+@RequestMapping(ApiPaths.IssueCtrl.CTRL)
+public class IssueController {
 
-    private final ProjectServiceImpl projectServiceImpl;
+    private final IssueServiceImpl issueServiceImpl;
 
-    public ProjectController(ProjectServiceImpl projectServiceImpl) {
-        this.projectServiceImpl = projectServiceImpl;
+    public IssueController(IssueServiceImpl issueServiceImpl) {
+        this.issueServiceImpl = issueServiceImpl;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProjectDto> getById(@PathVariable("id") Long id){
-        ProjectDto projectDto = projectServiceImpl.getById(id);
+    public ResponseEntity<IssueDto> getById(@PathVariable("id") Long id){
+        IssueDto projectDto = issueServiceImpl.getById(id);
         return ResponseEntity.ok(projectDto);
     }
 
     @PostMapping
-    public ResponseEntity<ProjectDto> createProject(@Valid @RequestBody ProjectDto project){
-        return ResponseEntity.ok(projectServiceImpl.save(project));
+    public ResponseEntity<IssueDto> createIssue(@Valid @RequestBody IssueDto issueDto){
+        return ResponseEntity.ok(issueServiceImpl.save(issueDto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProjectDto> updateProject(@PathVariable("id") Long id,  @Valid @RequestBody ProjectDto project){
-        return ResponseEntity.ok(projectServiceImpl.update(id, project));
+    public ResponseEntity<IssueDto> updateIssue(@PathVariable("id") Long id,  @Valid @RequestBody IssueDto issueDto){
+        return ResponseEntity.ok(issueServiceImpl.update(id, issueDto));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> delete(@PathVariable("id") Long id){
-       return ResponseEntity.ok(projectServiceImpl.delete(id));
+       return ResponseEntity.ok(issueServiceImpl.delete(id));
     }
 
 }
