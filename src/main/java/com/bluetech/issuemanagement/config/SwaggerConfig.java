@@ -3,6 +3,7 @@ package com.bluetech.issuemanagement.config;
  * Created by yasinkilinc on 10.11.2020
  */
 
+import java.time.LocalDate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +14,6 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import java.time.LocalDate;
 
 @Configuration
 @EnableSwagger2
