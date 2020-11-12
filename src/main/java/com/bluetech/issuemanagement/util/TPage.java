@@ -3,11 +3,13 @@ package com.bluetech.issuemanagement.util;
  * Created by yasinkilinc on 5.11.2020
  */
 
+import lombok.Data;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
+@Data
 public class TPage<T> {
 
     private int number;

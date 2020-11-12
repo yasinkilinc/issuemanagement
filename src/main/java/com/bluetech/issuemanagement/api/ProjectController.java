@@ -4,12 +4,14 @@ import com.bluetech.issuemanagement.dto.IssueDto;
 import com.bluetech.issuemanagement.dto.ProjectDto;
 import com.bluetech.issuemanagement.service.impl.ProjectServiceImpl;
 import com.bluetech.issuemanagement.util.ApiPaths;
+import com.bluetech.issuemanagement.util.TPage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +29,21 @@ public class ProjectController {
 
     public ProjectController(ProjectServiceImpl projectServiceImpl) {
         this.projectServiceImpl = projectServiceImpl;
+    }
+
+    @GetMapping("/pagination")
+    @Operation(summary = "Get By Id Pagination Operation")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the Project",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = TPage.class)) }),
+            @ApiResponse(responseCode = "400", description = "Invalid id Project",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "Project not found",
+                    content = @Content) })
+    public ResponseEntity<TPage<ProjectDto>> getAllByPagination(Pageable pageable){
+        TPage<ProjectDto> allPageable = projectServiceImpl.getAllPageable(pageable);
+        return ResponseEntity.ok(allPageable);
     }
 
     @GetMapping("/{id}")
