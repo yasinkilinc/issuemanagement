@@ -5,9 +5,6 @@ package com.bluetech.issuemanagement.dto;
 
 import com.bluetech.issuemanagement.entity.IssueStatus;
 import java.util.Date;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Temporal;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
