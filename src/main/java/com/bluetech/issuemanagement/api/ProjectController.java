@@ -44,6 +44,21 @@ public class ProjectController {
         return ResponseEntity.ok(projectDto);
     }
 
+    @GetMapping(value = "/{id}", consumes = "application/vnd.bluetech.v2+json", produces = "application/vnd.bluetech.v2+json")
+    @Operation(summary = "Get By Id Operation")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the Project",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = IssueDto.class)) }),
+            @ApiResponse(responseCode = "400", description = "Invalid id Project",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "Project not found",
+                    content = @Content) })
+    public ResponseEntity<ProjectDto> getByIdV2(@PathVariable("id") Long id){
+        ProjectDto projectDto = projectServiceImpl.getById(id);
+        return ResponseEntity.ok(projectDto);
+    }
+
     @PostMapping
     @Operation(summary = "Create Operation")
     @ApiResponses(value = {
