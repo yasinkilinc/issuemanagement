@@ -4,8 +4,7 @@ package com.bluetech.issuemanagement.dto;
  */
 
 import com.bluetech.issuemanagement.entity.IssueStatus;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,21 +14,21 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(value = "Issue History Data Transfer Object")
+@Schema(description = "Issue History Data Transfer Object")
 public class IssueHistoryDto {
 
-    @ApiModelProperty(required = true, value = "ID")
+    @Schema(required = true, description = "ID")
     private Long id;
-    @ApiModelProperty(required = true, value = "Issue")
+    @Schema(required = true, description = "Issue")
     private IssueDto issue;
-    @ApiModelProperty(value = "description")
+    @Schema(description = "description")
     private String description;
-    @ApiModelProperty(required = true, value = "Date")
+    @Schema(required = true, description = "Date")
     private Date date;
-    @ApiModelProperty(required = true, value = "Status Of Isssue")
+    @Schema(required = true, description = "Status Of Isssue")
     private IssueStatus issueStatus;
-    @ApiModelProperty(value = "details")
+    @Schema(description = "details")
     private String details;
-    @ApiModelProperty(required = true, value = "Assignee")
+    @Schema(required = true, description = "Assignee")
     private UserDto assignee;
 }

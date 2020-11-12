@@ -3,8 +3,9 @@ package com.bluetech.issuemanagement.service;
 import com.bluetech.issuemanagement.dto.ProjectDto;
 import com.bluetech.issuemanagement.entity.Project;
 import com.bluetech.issuemanagement.util.TPage;
-import java.util.List;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface ProjectService {
 

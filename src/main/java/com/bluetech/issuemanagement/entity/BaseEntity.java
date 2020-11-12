@@ -1,12 +1,13 @@
 package com.bluetech.issuemanagement.entity;
 
-import java.io.Serializable;
-import java.util.Date;
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import lombok.Data;
+import java.io.Serializable;
+import java.util.Date;
 
 /* Created by yasinkilinc on 31.10.2020 */
 
