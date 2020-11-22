@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {NavigationEnd, Router} from "@angular/router";
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -10,6 +11,7 @@ export class HeaderComponent implements OnInit {
   pushRightClass: string = 'push-right';
   collapseClass:string = 'collapsed';
   isCollapsed = false;
+  user = faUser;
 
   activeUser = {};
 
