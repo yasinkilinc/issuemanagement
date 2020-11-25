@@ -10,6 +10,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {HeaderComponent} from "./_layout/header/header.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {ApiService} from "./services/api.service";
 
 export const createTranslateLoader = (http: HttpClient) => {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -36,7 +37,7 @@ export const createTranslateLoader = (http: HttpClient) => {
       }
     })
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
