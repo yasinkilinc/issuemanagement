@@ -13,8 +13,8 @@ export class ProjectService {
 
   }
 
-  getall(): Observable<any> {
-    return this.apiService.get(this.PROJECT_PATH).pipe(map(
+  getall(page): Observable<any> {
+    return this.apiService.get(this.PROJECT_PATH, page).pipe(map(
       res => {
         if (res) {
           return res;

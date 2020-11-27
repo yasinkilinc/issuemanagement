@@ -23,6 +23,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(ApiPaths.ProjectCtrl.CTRL)
 @Tag(name = "ProjectController", description = "Project APIs")
+@CrossOrigin
 public class ProjectController {
 
     private final ProjectServiceImpl projectServiceImpl;
@@ -31,8 +32,8 @@ public class ProjectController {
         this.projectServiceImpl = projectServiceImpl;
     }
 
-    @GetMapping("/pagination")
-    @Operation(summary = "Get By Id Pagination Operation")
+    @GetMapping
+    @Operation(summary = "Get All By Pagination Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the Project",
                     content = { @Content(mediaType = "application/json",

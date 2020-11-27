@@ -11,6 +11,7 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {HeaderComponent} from "./_layout/header/header.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {ApiService} from "./services/api.service";
+import {NgxDatatableModule} from "@swimlane/ngx-datatable";
 
 export const createTranslateLoader = (http: HttpClient) => {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -28,6 +29,7 @@ export const createTranslateLoader = (http: HttpClient) => {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    NgxDatatableModule,
     FontAwesomeModule,
     TranslateModule.forRoot({
       loader: {
