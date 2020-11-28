@@ -1,6 +1,7 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ProjectService} from "../../services/shared/project.service";
 import {Page} from "../../common/page";
+import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 
 @Component({
   selector: 'app-project',
@@ -9,15 +10,21 @@ import {Page} from "../../common/page";
 })
 export class ProjectComponent implements OnInit {
 
-  @ViewChild('tplProjectDeleteCell') tplProjectDeleteCell: TemplateRef<any>;
-
   page = new Page();
+
   cols = [];
   rows = [];
+  modalRef: BsModalRef;
+//  @ViewChild('tplProjectDeleteCell') tplProjectDeleteCell: TemplateRef<any>;
 
-  constructor(private projectService: ProjectService) {
+  constructor(private projectService: ProjectService ,private modalService: BsModalService) {
 
   }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
 
   ngOnInit(): void {
     this.cols = [
@@ -25,7 +32,7 @@ export class ProjectComponent implements OnInit {
       {prop: 'projectName', name: 'Project Name', sortable: false},
       {prop: 'projectCode', name: 'Project Code', sortable: false},
       {prop: 'manager.nameSurname', name: 'Manager', sortable: false},
-      {prop: 'id', name: 'Actions', cellTemplate: this.tplProjectDeleteCell, flexGrow: 1, sortable: false}
+//      {prop: 'id', name: 'Actions', cellTemplate: this.tplProjectDeleteCell, flexGrow: 1, sortable: false}
     ];
 
     this.setPage({offset: 0, limit:10})

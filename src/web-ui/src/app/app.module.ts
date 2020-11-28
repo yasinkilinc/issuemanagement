@@ -12,6 +12,7 @@ import {HeaderComponent} from "./_layout/header/header.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {ApiService} from "./services/api.service";
 import {NgxDatatableModule} from "@swimlane/ngx-datatable";
+import {ModalModule} from "ngx-bootstrap";
 
 export const createTranslateLoader = (http: HttpClient) => {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -31,6 +32,7 @@ export const createTranslateLoader = (http: HttpClient) => {
     HttpClientModule,
     NgxDatatableModule,
     FontAwesomeModule,
+    ModalModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
