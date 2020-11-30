@@ -2,6 +2,7 @@ import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ProjectService} from "../../services/shared/project.service";
 import {Page} from "../../common/page";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-project',
@@ -11,13 +12,15 @@ import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 export class ProjectComponent implements OnInit {
 
   page = new Page();
+  projectForm: FormGroup;
 
   cols = [];
   rows = [];
   modalRef: BsModalRef;
+
 //  @ViewChild('tplProjectDeleteCell') tplProjectDeleteCell: TemplateRef<any>;
 
-  constructor(private projectService: ProjectService ,private modalService: BsModalService) {
+  constructor(private projectService: ProjectService, private modalService: BsModalService, private formBuilder: FormBuilder) {
 
   }
 
@@ -25,6 +28,17 @@ export class ProjectComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
+  saveProject() {
+    if (!this.projectForm.valid)
+      return;
+
+    this.projectService.createProject(this.projectForm.value).subscribe(
+      response => {
+        this.setPage({offset: 0, limit: 10});
+        this.closeAndResetModal();
+      }
+    )
+  }
 
   ngOnInit(): void {
     this.cols = [
@@ -35,7 +49,23 @@ export class ProjectComponent implements OnInit {
 //      {prop: 'id', name: 'Actions', cellTemplate: this.tplProjectDeleteCell, flexGrow: 1, sortable: false}
     ];
 
-    this.setPage({offset: 0, limit:10})
+    this.setPage({offset: 0, limit: 10})
+
+    this.projectForm = this.formBuilder.group({
+      'projectCode': [null, [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
+      'projectName': [null, [Validators.required, Validators.minLength(4)]]
+//      'managerId': [null, [Validators.required]]
+    });
+
+  }
+
+  get f() {
+    return this.projectForm.controls
+  }
+
+  closeAndResetModal() {
+    this.projectForm.reset();
+    this.modalRef.hide();
   }
 
   setPage(pageInfo) {

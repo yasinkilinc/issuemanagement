@@ -16,7 +16,7 @@ export class ApiService {
   constructor(private http: HttpClient) {
   }
 
-  const // @ts-ignore
+  const
   httpOptions = {
     headers: new HttpHeaders(
       {"Content-Type": 'application/json'}
@@ -24,17 +24,16 @@ export class ApiService {
   }
 
   get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-    return this.http.get(environment.API_BASE_PATH + path, {params}).pipe(catchError(this.formatError));
+    return this.http.get( environment.API_BASE_PATH + path, {params}).pipe(catchError(this.formatError));
   }
 
   post(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-    // @ts-ignore
-    return this.http.post(environment.API_BASE_PATH + path, JSON.stringify({params}, this.httpOptions).pipe(catchError(this.formatError)));
+    return this.http.post(environment.API_BASE_PATH + path, JSON.stringify(params), this.httpOptions).pipe(catchError(this.formatError));
   }
 
   put(path: string, params: HttpParams = new HttpParams()): Observable<any> {
     // @ts-ignore
-    return this.http.put(environment.API_BASE_PATH + path, JSON.stringify({params}, this.httpOptions).pipe(catchError(this.formatError)));
+    return this.http.put(environment.API_BASE_PATH + path, JSON.stringify(params), this.httpOptions).pipe(catchError(this.formatError));
   }
 
   delete(path: string, params: HttpParams = new HttpParams()): Observable<any> {
