@@ -54,7 +54,7 @@ export class IssueService {
   }
 
   delete(id): Observable<any> {
-    return this.apiService.delete(this.ISSUE_PATH, id).pipe(map(
+    return this.apiService.delete(this.ISSUE_PATH +'/'+id).pipe(map(
       res => {
         if (res) {
           return res;

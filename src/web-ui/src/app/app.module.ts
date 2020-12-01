@@ -13,6 +13,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {ApiService} from "./services/api.service";
 import {NgxDatatableModule} from "@swimlane/ngx-datatable";
 import {ModalModule} from "ngx-bootstrap";
+import {ProjectService} from "./services/shared/project.service";
 
 export const createTranslateLoader = (http: HttpClient) => {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -41,7 +42,10 @@ export const createTranslateLoader = (http: HttpClient) => {
       }
     })
   ],
-  providers: [ApiService],
+  providers: [
+    ApiService,
+    ProjectService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

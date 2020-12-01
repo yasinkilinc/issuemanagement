@@ -7,24 +7,25 @@ import {CommonModule} from "@angular/common";
 
 
 @NgModule({
-  imports:[
+  imports: [
     CommonModule,
     FormsModule,
     ModalModule.forRoot()
   ],
-  providers:[
-    BsModalRef
-  ],
- exports:[
-   TranslateModule,
-   ModalModule,
-   FormsModule,
-   ReactiveFormsModule,
-   ConfirmationComponent
- ],
-  entryComponents:[
+  providers: [BsModalRef],
+  declarations: [
     ConfirmationComponent
   ],
- declarations: [ConfirmationComponent]
+  entryComponents: [
+    ConfirmationComponent
+  ],
+  exports: [
+    TranslateModule,
+    ModalModule,
+    ReactiveFormsModule,
+    ConfirmationComponent,
+    FormsModule
+  ]
 })
-export class SharedModule { }
+export class SharedModule {
+}

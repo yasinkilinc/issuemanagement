@@ -4,5 +4,6 @@
   "Project Name is required": "Project Name is required",
   "Project Name should be (min) 4 char":"Project Name should be (min) 4 char",
   "Project Code":"Project Code",
-  "Project Name":"Project Name"
+  "Project Name":"Project Name",
+  "New": "New"
 }

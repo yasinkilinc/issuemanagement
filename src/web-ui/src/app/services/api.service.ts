@@ -36,8 +36,8 @@ export class ApiService {
     return this.http.put(environment.API_BASE_PATH + path, JSON.stringify(params), this.httpOptions).pipe(catchError(this.formatError));
   }
 
-  delete(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-    return this.http.post(environment.API_BASE_PATH + path, {params}).pipe(catchError(this.formatError));
+  delete(path: string): Observable<any> {
+    return this.http.delete(environment.API_BASE_PATH + path).pipe(catchError(this.formatError));
   }
 
   private formatError(error: any) {

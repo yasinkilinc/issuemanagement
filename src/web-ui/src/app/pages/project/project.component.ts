@@ -1,9 +1,10 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild, AfterViewInit} from '@angular/core';
 import {ProjectService} from "../../services/shared/project.service";
 import {Page} from "../../common/page";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ConfirmationComponent} from "../../shared/confirmation/confirmation.component";
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-project',
@@ -12,16 +13,19 @@ import {ConfirmationComponent} from "../../shared/confirmation/confirmation.comp
 })
 export class ProjectComponent implements OnInit {
 
-  page = new Page();
+  modalRef: BsModalRef;
   projectForm: FormGroup;
 
+  page = new Page();
   cols = [];
   rows = [];
-  modalRef: BsModalRef;
+  delete = faTrash;
 
-//  @ViewChild('tplProjectDeleteCell') tplProjectDeleteCell: TemplateRef<any>;
+  @ViewChild('tplProjectDeleteCell') tplProjectDeleteCell: TemplateRef<any>;
 
-  constructor(private projectService: ProjectService, private modalService: BsModalService, private formBuilder: FormBuilder) {
+  constructor(private projectService: ProjectService,
+              private modalService: BsModalService,
+              private formBuilder: FormBuilder) {
 
   }
 
@@ -41,15 +45,17 @@ export class ProjectComponent implements OnInit {
     )
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit() {
     this.cols = [
       {prop: 'id', name: 'No'},
       {prop: 'projectName', name: 'Project Name', sortable: false},
       {prop: 'projectCode', name: 'Project Code', sortable: false},
-      {prop: 'manager.nameSurname', name: 'Manager', sortable: false},
-//      {prop: 'id', name: 'Actions', cellTemplate: this.tplProjectDeleteCell, flexGrow: 1, sortable: false}
+      //{prop: 'manager.nameSurname', name: 'Manager', sortable: false},
+      {prop: 'id', name: 'Actions', cellTemplate: this.tplProjectDeleteCell, flexGrow: 1, sortable: false}
     ];
+  }
 
+  ngOnInit(): void {
     this.setPage({offset: 0, limit: 10})
 
     this.projectForm = this.formBuilder.group({
@@ -80,18 +86,21 @@ export class ProjectComponent implements OnInit {
     )
   }
 
-  showDeleteConfirmation(){
+  showProjectDeleteConfirmation(value){
     const modal = this.modalService.show( ConfirmationComponent );
     (<ConfirmationComponent>modal.content).showConfirmation(
-      'Test Modal',
-      'Test Body Content'
+      'Delete Confirmation',
+      'Are you sure for delete project?'
     );
 
     (<ConfirmationComponent>modal.content).onClose.subscribe(result => {
       if(result ===true){
-        console.log("Yes");
+        this.projectService.delete(value).subscribe( response => {
+          if(response === true){
+            this.setPage({offset: 0, limit: 10})
+          }
+        });
       }else if(result ===false){
-        console.log("No");
       }
     });
   }
