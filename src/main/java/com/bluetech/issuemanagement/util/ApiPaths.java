@@ -14,4 +14,8 @@ public interface ApiPaths {
     interface ProjectCtrl{
         String CTRL = BASE_PATH + "/project" ;
     }
+
+    interface UserCtrl{
+        String CTRL = BASE_PATH + "/users" ;
+    }
 }
