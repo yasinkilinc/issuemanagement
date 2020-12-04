@@ -3,7 +3,6 @@ import {ApiService} from "../api.service";
 import {Observable} from "rxjs/Observable";
 import {map} from "rxjs/operators";
 
-
 @Injectable()
 export class ProjectService {
 

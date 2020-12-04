@@ -4,8 +4,11 @@ package com.bluetech.issuemanagement.service.impl;
  */
 
 import com.bluetech.issuemanagement.dto.ProjectDto;
+import com.bluetech.issuemanagement.dto.UserDto;
 import com.bluetech.issuemanagement.entity.Project;
+import com.bluetech.issuemanagement.entity.User;
 import com.bluetech.issuemanagement.repository.ProjectRepository;
+import com.bluetech.issuemanagement.repository.UserRepository;
 import com.bluetech.issuemanagement.service.ProjectService;
 import com.bluetech.issuemanagement.util.TPage;
 import org.modelmapper.ModelMapper;
@@ -21,10 +24,12 @@ public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepository projectRepository;
     private final ModelMapper modelMapper;
+    private final UserRepository userRepository;
 
-    public ProjectServiceImpl(ProjectRepository projectRepository, ModelMapper modelMapper) {
+    public ProjectServiceImpl(ProjectRepository projectRepository, ModelMapper modelMapper, UserRepository userRepository) {
         this.projectRepository = projectRepository;
         this.modelMapper = modelMapper;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -36,6 +41,8 @@ public class ProjectServiceImpl implements ProjectService {
         }
 
         Project project = modelMapper.map(projectDto, Project.class);
+        User user = userRepository.getOne(projectDto.getManagerId());
+        project.setManager(user);
         project = projectRepository.save(project);
         projectDto.setId(project.getId());
         return projectDto;

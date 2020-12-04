@@ -4,11 +4,11 @@ import {Observable} from "rxjs/Observable";
 import {map} from "rxjs/operators";
 
 @Injectable()
-export class UserService{
+export class IssueHistoryService {
 
-  private USER_PATH = "/users";
+  private USER_PATH = "/issue/history";
 
-  constructor(private apiService: ApiService){
+  constructor(private apiService: ApiService ){
   }
 
   getAll() : Observable<any>{
@@ -37,7 +37,7 @@ export class UserService{
     ));
   }
 
-  createUser(user) : Observable<any>{
+  createUserHistory(user) : Observable<any>{
     return this.apiService.post(this.USER_PATH ,user).pipe(map(
       res =>{
         if(res){

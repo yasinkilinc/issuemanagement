@@ -28,4 +28,10 @@ public class ProjectDto {
     @Schema(required = true, description = "Code of Project")
     private String projectCode;
 
+    @NotNull
+    @Schema(required = true, description = "Project manager ID")
+    private Long managerId;
+
+    @Schema(required = true, description = "Project Manager Name")
+    private UserDto manager;
 }

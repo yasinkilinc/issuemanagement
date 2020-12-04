@@ -1,10 +1,10 @@
-import {Component, OnInit, TemplateRef, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild, AfterViewInit, ChangeDetectorRef} from '@angular/core';
 import {ProjectService} from "../../services/shared/project.service";
 import {Page} from "../../common/page";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ConfirmationComponent} from "../../shared/confirmation/confirmation.component";
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import {UserService} from "../../services/shared/user.service";
 
 @Component({
   selector: 'app-project',
@@ -19,14 +19,15 @@ export class ProjectComponent implements OnInit {
   page = new Page();
   cols = [];
   rows = [];
-  delete = faTrash;
+  managerOptions =[];
 
   @ViewChild('tplProjectDeleteCell') tplProjectDeleteCell: TemplateRef<any>;
 
   constructor(private projectService: ProjectService,
               private modalService: BsModalService,
-              private formBuilder: FormBuilder) {
-
+              private formBuilder: FormBuilder,
+              private userService: UserService,
+              private cdr: ChangeDetectorRef) {
   }
 
   openModal(template: TemplateRef<any>) {
@@ -34,6 +35,7 @@ export class ProjectComponent implements OnInit {
   }
 
   saveProject() {
+
     if (!this.projectForm.valid)
       return;
 
@@ -50,7 +52,7 @@ export class ProjectComponent implements OnInit {
       {prop: 'id', name: 'No'},
       {prop: 'projectName', name: 'Project Name', sortable: false},
       {prop: 'projectCode', name: 'Project Code', sortable: false},
-      //{prop: 'manager.nameSurname', name: 'Manager', sortable: false},
+      {prop: 'manager.nameSurname', name: 'Manager', sortable: false},
       {prop: 'id', name: 'Actions', cellTemplate: this.tplProjectDeleteCell, flexGrow: 1, sortable: false}
     ];
   }
@@ -60,10 +62,20 @@ export class ProjectComponent implements OnInit {
 
     this.projectForm = this.formBuilder.group({
       'projectCode': [null, [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
-      'projectName': [null, [Validators.required, Validators.minLength(4)]]
-//      'managerId': [null, [Validators.required]]
+      'projectName': [null, [Validators.required, Validators.minLength(4)]],
+      'managerId': [null, [Validators.required]]
     });
 
+    this.userService.getAll().subscribe( res => {
+      this.managerOptions = res;
+      console.log(res);
+    });
+
+  }
+
+  ngAfterViewChecked(){
+    //your code to update the model
+    this.cdr.detectChanges();
   }
 
   get f() {
