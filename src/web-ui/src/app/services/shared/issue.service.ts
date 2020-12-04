@@ -13,8 +13,8 @@ export class IssueService {
 
   }
 
-  getall(): Observable<any> {
-    return this.apiService.get(this.ISSUE_PATH).pipe(map(
+  getall(page): Observable<any> {
+    return this.apiService.get(this.ISSUE_PATH + '/pagination', page ).pipe(map(
       res => {
         if (res) {
           return res;

@@ -3,7 +3,9 @@ package com.bluetech.issuemanagement.service.impl;
  * Created by yasinkilinc on 4.11.2020
  */
 
+import com.bluetech.issuemanagement.dto.IssueDetailDto;
 import com.bluetech.issuemanagement.dto.IssueDto;
+import com.bluetech.issuemanagement.dto.IssueHistoryDto;
 import com.bluetech.issuemanagement.entity.Issue;
 import com.bluetech.issuemanagement.repository.IssueRepository;
 import com.bluetech.issuemanagement.service.IssueService;
@@ -14,16 +16,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class IssueServiceImpl implements IssueService {
 
     private final IssueRepository issueRepository;
+    private final IssueHistoryServiceImpl issueHistoryService;
     private final ModelMapper modelMapper;
 
     public IssueServiceImpl(IssueRepository issueRepository,
-                            ModelMapper modelMapper) {
+                            IssueHistoryServiceImpl issueHistoryServiceImpl, ModelMapper modelMapper) {
         this.issueRepository = issueRepository;
+        this.issueHistoryService = issueHistoryServiceImpl;
         this.modelMapper = modelMapper;
     }
 
@@ -41,6 +46,14 @@ public class IssueServiceImpl implements IssueService {
     public IssueDto getById(Long id) {
         Issue issue = issueRepository.getOne(id);
         return modelMapper.map( issue, IssueDto.class);
+    }
+
+    public IssueDetailDto getByIdWithDetails(Long id) {
+        Issue issue = issueRepository.getOne(id);
+        IssueDetailDto detailDto = modelMapper.map(issue, IssueDetailDto.class);
+        List<IssueHistoryDto> issueHistoryDtos = issueHistoryService.getByIssueId(issue.getId());
+        detailDto.setIssueHistories(issueHistoryDtos);
+        return detailDto;
     }
 
     @Override

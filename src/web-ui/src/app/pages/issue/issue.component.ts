@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {IssueService} from "../../services/shared/issue.service";
+import {Page} from "../../common/page";
 
 @Component({
   selector: 'app-issue',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IssueComponent implements OnInit {
 
-  constructor() { }
+  page = new Page();
+  rows = [];
+
+  constructor(private issueService: IssueService) { }
 
   ngOnInit(): void {
+    this.setPage({offset: 0, limit: 10})
+  }
+
+  setPage(pageInfo) {
+    this.page.page = pageInfo.offset;
+    this.page.size = pageInfo.limit;
+    this.issueService.getall(this.page).subscribe(pageData => {
+        this.page.totalElements = pageData.totalElements;
+        this.page.totalPages = pageData.totalPages;
+        this.rows = pageData.content;
+      }
+    )
   }
 
 }

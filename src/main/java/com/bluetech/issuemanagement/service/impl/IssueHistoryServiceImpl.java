@@ -3,7 +3,7 @@ package com.bluetech.issuemanagement.service.impl;
  * Created by yasinkilinc on 4.11.2020
  */
 
-import com.bluetech.issuemanagement.dto.IssueDto;
+import com.bluetech.issuemanagement.dto.IssueHistoryDto;
 import com.bluetech.issuemanagement.entity.IssueHistory;
 import com.bluetech.issuemanagement.repository.IssueHistoryRepository;
 import com.bluetech.issuemanagement.service.IssueHistoryService;
@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class IssueHistoryServiceImpl implements IssueHistoryService {
@@ -41,10 +42,16 @@ public class IssueHistoryServiceImpl implements IssueHistoryService {
         return issueHistoryRepository.getOne(id);
     }
 
+
     @Override
-    public TPage<IssueDto> getAllPageable(Pageable pageable) {
+    public List<IssueHistoryDto> getByIssueId(Long id) {
+        return Arrays.asList(modelMapper.map(issueHistoryRepository.getByIssueIdOrderById(id), IssueHistoryDto[].class));
+    }
+
+    @Override
+    public TPage<IssueHistoryDto> getAllPageable(Pageable pageable) {
         Page<IssueHistory> data = issueHistoryRepository.findAll(pageable);
-        return new TPage<IssueDto>(data, Arrays.asList( modelMapper.map( data.getContent() , IssueDto[].class) ));
+        return new TPage<IssueHistoryDto>(data, Arrays.asList( modelMapper.map( data.getContent() , IssueHistoryDto[].class) ));
     }
 
     @Override
