@@ -27,7 +27,7 @@ public class IssueHistory extends BaseEntity {
     private Issue issue;
 
     @Column(name = "description", length = 1000)
-    private String desctiption;
+    private String description;
 
     @Column(name = "date")
     @Temporal(TemporalType.TIMESTAMP)

@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /*
  * Created by yasinkilinc on 10.11.2020
@@ -32,7 +33,7 @@ public class ProjectController {
         this.projectServiceImpl = projectServiceImpl;
     }
 
-    @GetMapping
+    @GetMapping("/pagination")
     @Operation(summary = "Get All By Pagination Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the Project",
@@ -44,6 +45,21 @@ public class ProjectController {
                     content = @Content) })
     public ResponseEntity<TPage<ProjectDto>> getAllByPagination(Pageable pageable){
         TPage<ProjectDto> allPageable = projectServiceImpl.getAllPageable(pageable);
+        return ResponseEntity.ok(allPageable);
+    }
+
+    @GetMapping
+    @Operation(summary = "Get All Operation")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the Project",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = List.class)) }),
+            @ApiResponse(responseCode = "400", description = "Invalid id Project",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "Project not found",
+                    content = @Content) })
+    public ResponseEntity<List<ProjectDto>> getAll(){
+        List<ProjectDto> allPageable = projectServiceImpl.getAll();
         return ResponseEntity.ok(allPageable);
     }
 

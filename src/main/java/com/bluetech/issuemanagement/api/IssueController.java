@@ -2,6 +2,8 @@ package com.bluetech.issuemanagement.api;
 
 import com.bluetech.issuemanagement.dto.IssueDetailDto;
 import com.bluetech.issuemanagement.dto.IssueDto;
+import com.bluetech.issuemanagement.dto.IssueUpdateDto;
+import com.bluetech.issuemanagement.entity.IssueStatus;
 import com.bluetech.issuemanagement.service.impl.IssueServiceImpl;
 import com.bluetech.issuemanagement.util.ApiPaths;
 import com.bluetech.issuemanagement.util.TPage;
@@ -16,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.List;
 
 /*
  * Created by yasinkilinc on 10.11.2020
@@ -36,13 +40,13 @@ public class IssueController {
     @Operation(summary = "Get All By Pagination Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the Project",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = TPage.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = TPage.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid id Issue",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "Issue not found",
-                    content = @Content) })
-    public ResponseEntity<TPage<IssueDto>> getAllByPagination(Pageable pageable){
+                    content = @Content)})
+    public ResponseEntity<TPage<IssueDto>> getAllByPagination(Pageable pageable) {
         TPage<IssueDto> allPageable = issueServiceImpl.getAllPageable(pageable);
         return ResponseEntity.ok(allPageable);
     }
@@ -51,13 +55,13 @@ public class IssueController {
     @Operation(summary = "Get By Id Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the Issue",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = IssueDto.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = IssueDto.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid id Issue",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "Issue not found",
-                    content = @Content) })
-    public ResponseEntity<IssueDto> getById(@PathVariable("id") Long id){
+                    content = @Content)})
+    public ResponseEntity<IssueDto> getById(@PathVariable("id") Long id) {
         IssueDto projectDto = issueServiceImpl.getById(id);
         return ResponseEntity.ok(projectDto);
     }
@@ -66,12 +70,12 @@ public class IssueController {
     @Operation(summary = "Get By Id Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the Issue",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = IssueDto.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = IssueDto.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid id Issue",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "Issue not found",
-                    content = @Content) })
+                    content = @Content)})
     public ResponseEntity<IssueDetailDto> getByIdWithDetails(@PathVariable(value = "id", required = true) Long id) {
         IssueDetailDto detailDto = issueServiceImpl.getByIdWithDetails(id);
         return ResponseEntity.ok(detailDto);
@@ -81,11 +85,11 @@ public class IssueController {
     @Operation(summary = "Create Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Issue created",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = IssueDto.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = IssueDto.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid Issue",
                     content = @Content)})
-    public ResponseEntity<IssueDto> createIssue(@Valid @RequestBody IssueDto issueDto){
+    public ResponseEntity<IssueDto> createIssue(@Valid @RequestBody IssueDto issueDto) {
         return ResponseEntity.ok(issueServiceImpl.save(issueDto));
     }
 
@@ -93,11 +97,11 @@ public class IssueController {
     @Operation(summary = "Update Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Issue updated",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = IssueDto.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = IssueDetailDto.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid id Issue",
                     content = @Content)})
-    public ResponseEntity<IssueDto> updateIssue(@PathVariable("id") Long id,  @Valid @RequestBody IssueDto issueDto){
+    public ResponseEntity<IssueDetailDto> updateProject(@PathVariable("id") Long id, @Valid @RequestBody IssueUpdateDto issueDto) {
         return ResponseEntity.ok(issueServiceImpl.update(id, issueDto));
     }
 
@@ -105,12 +109,22 @@ public class IssueController {
     @Operation(summary = "Delete Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Issue deleted",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = IssueDto.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = IssueDto.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid Issue",
                     content = @Content)})
-    public ResponseEntity<Boolean> delete(@PathVariable("id") Long id){
-       return ResponseEntity.ok(issueServiceImpl.delete(id));
+    public ResponseEntity<Boolean> delete(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(issueServiceImpl.delete(id));
     }
 
+    @GetMapping("/statuses")
+    //@ApiOperation(value = "Get All Issue Statuses Operation", response = String.class, responseContainer = "List")
+    @Operation(summary = "Get All Issue Statuses Operation")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Issue statuses",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = String.class))}),
+            @ApiResponse(responseCode = "400", description = "Invalid Issue", content = @Content)})
+    public ResponseEntity<List<IssueStatus>> getAll() {
+        return ResponseEntity.ok(Arrays.asList(IssueStatus.values()));
+    }
 }

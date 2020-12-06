@@ -21,7 +21,7 @@ export class IssueComponent implements OnInit {
   setPage(pageInfo) {
     this.page.page = pageInfo.offset;
     this.page.size = pageInfo.limit;
-    this.issueService.getall(this.page).subscribe(pageData => {
+    this.issueService.getAll(this.page).subscribe(pageData => {
         this.page.totalElements = pageData.totalElements;
         this.page.totalPages = pageData.totalPages;
         this.rows = pageData.content;

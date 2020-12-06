@@ -4,6 +4,7 @@ package com.bluetech.issuemanagement.service.impl;
  */
 
 import com.bluetech.issuemanagement.dto.IssueHistoryDto;
+import com.bluetech.issuemanagement.entity.Issue;
 import com.bluetech.issuemanagement.entity.IssueHistory;
 import com.bluetech.issuemanagement.repository.IssueHistoryRepository;
 import com.bluetech.issuemanagement.service.IssueHistoryService;
@@ -58,5 +59,17 @@ public class IssueHistoryServiceImpl implements IssueHistoryService {
     public Boolean delete(IssueHistory issueHistory) {
         issueHistoryRepository.delete(issueHistory);
         return Boolean.TRUE;
+    }
+
+    @Override
+    public void addHistory(Long id, Issue issueDb) {
+        IssueHistory history=new IssueHistory();
+        history.setIssue(issueDb);
+        history.setAssignee(issueDb.getAssignee());
+        history.setDate(issueDb.getDate());
+        history.setDescription(issueDb.getDescription());
+        history.setDetails(issueDb.getDetails());
+        history.setIssueStatus(issueDb.getIssueStatus());
+        issueHistoryRepository.save(history);
     }
 }

@@ -4,7 +4,6 @@ package com.bluetech.issuemanagement.service.impl;
  */
 
 import com.bluetech.issuemanagement.dto.ProjectDto;
-import com.bluetech.issuemanagement.dto.UserDto;
 import com.bluetech.issuemanagement.entity.Project;
 import com.bluetech.issuemanagement.entity.User;
 import com.bluetech.issuemanagement.repository.ProjectRepository;
@@ -71,6 +70,12 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public List<ProjectDto> getAll() {
+        List<Project> data = projectRepository.findAll();
+        return Arrays.asList( modelMapper.map( data, ProjectDto[].class));
+    }
+
+    @Override
     public Boolean delete(Project project) {
         projectRepository.delete(project);
         return Boolean.TRUE;
@@ -98,4 +103,6 @@ public class ProjectServiceImpl implements ProjectService {
 
         return modelMapper.map( projectRepository.save(projectDb), ProjectDto.class);
     }
+
+
 }

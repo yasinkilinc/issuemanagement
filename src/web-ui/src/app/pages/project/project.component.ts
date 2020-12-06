@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef, ViewChild, AfterViewInit, ChangeDetectorRef} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ProjectService} from "../../services/shared/project.service";
 import {Page} from "../../common/page";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
@@ -57,6 +57,11 @@ export class ProjectComponent implements OnInit {
     ];
   }
 
+  ngAfterViewChecked(){
+    //your code to update the model
+    this.cdr.detectChanges();
+  }
+
   ngOnInit(): void {
     this.setPage({offset: 0, limit: 10})
 
@@ -73,11 +78,6 @@ export class ProjectComponent implements OnInit {
 
   }
 
-  ngAfterViewChecked(){
-    //your code to update the model
-    this.cdr.detectChanges();
-  }
-
   get f() {
     return this.projectForm.controls
   }
@@ -90,7 +90,7 @@ export class ProjectComponent implements OnInit {
   setPage(pageInfo) {
     this.page.page = pageInfo.offset;
     this.page.size = pageInfo.limit;
-    this.projectService.getall(this.page).subscribe(pageData => {
+    this.projectService.getAllPageable(this.page).subscribe(pageData => {
         this.page.totalElements = pageData.totalElements;
         this.page.totalPages = pageData.totalPages;
         this.rows = pageData.content;

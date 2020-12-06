@@ -1,6 +1,8 @@
 package com.bluetech.issuemanagement.service;
 
+import com.bluetech.issuemanagement.dto.IssueDetailDto;
 import com.bluetech.issuemanagement.dto.IssueDto;
+import com.bluetech.issuemanagement.dto.IssueUpdateDto;
 import com.bluetech.issuemanagement.util.TPage;
 import org.springframework.data.domain.Pageable;
 
@@ -14,5 +16,5 @@ public interface IssueService {
 
     Boolean delete(Long id);
 
-    IssueDto update(Long id, IssueDto issueDto);
+    IssueDetailDto update(Long id, IssueUpdateDto issueDto);
 }

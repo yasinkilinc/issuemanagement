@@ -12,7 +12,7 @@ import {HeaderComponent} from "./_layout/header/header.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {ApiService} from "./services/api.service";
 import {NgxDatatableModule} from "@swimlane/ngx-datatable";
-import {ModalModule} from "ngx-bootstrap";
+import {BsDatepickerModule, BsDropdownModule, CollapseModule, ModalModule, PaginationModule} from "ngx-bootstrap";
 import {ProjectService} from "./services/shared/project.service";
 import {IssueService} from "./services/shared/issue.service";
 import {UserService} from "./services/shared/user.service";
@@ -38,7 +38,11 @@ export const createTranslateLoader = (http: HttpClient) => {
     HttpClientModule,
     NgxDatatableModule,
     FontAwesomeModule,
+    CollapseModule.forRoot(),
+    BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
+    PaginationModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
