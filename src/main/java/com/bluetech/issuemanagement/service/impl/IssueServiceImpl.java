@@ -8,6 +8,7 @@ import com.bluetech.issuemanagement.dto.IssueDto;
 import com.bluetech.issuemanagement.dto.IssueHistoryDto;
 import com.bluetech.issuemanagement.dto.IssueUpdateDto;
 import com.bluetech.issuemanagement.entity.Issue;
+import com.bluetech.issuemanagement.entity.IssueStatus;
 import com.bluetech.issuemanagement.entity.User;
 import com.bluetech.issuemanagement.repository.IssueRepository;
 import com.bluetech.issuemanagement.repository.ProjectRepository;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -43,12 +45,17 @@ public class IssueServiceImpl implements IssueService {
 
     @Override
     public IssueDto save(IssueDto issue) {
-        if(issue.getDate() == null){
-            throw new IllegalArgumentException("Issue date can not be null");
-        }
+
+        issue.setDate(new Date());
+        issue.setIssueStatus(IssueStatus.OPEN);
+
         Issue issueDb = modelMapper.map(issue, Issue.class);
+
+        issueDb.setProject(projectRepository.getOne(issue.getProjectId()));
         issueDb = issueRepository.save(issueDb);
-        return modelMapper.map(issueDb, IssueDto.class);
+
+        issue.setId(issueDb.getId());
+        return issue;
     }
 
     @Override

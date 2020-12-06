@@ -101,7 +101,7 @@ public class IssueController {
                             schema = @Schema(implementation = IssueDetailDto.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid id Issue",
                     content = @Content)})
-    public ResponseEntity<IssueDetailDto> updateProject(@PathVariable("id") Long id, @Valid @RequestBody IssueUpdateDto issueDto) {
+    public ResponseEntity<IssueDetailDto> updateIssue(@PathVariable("id") Long id, @Valid @RequestBody IssueUpdateDto issueDto) {
         return ResponseEntity.ok(issueServiceImpl.update(id, issueDto));
     }
 

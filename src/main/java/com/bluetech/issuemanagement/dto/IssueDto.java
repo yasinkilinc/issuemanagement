@@ -32,4 +32,6 @@ public class IssueDto {
     @Schema(required = true, description = "Issue Project")
     private ProjectDto project;
 
+    private Long projectId;
+
 }
