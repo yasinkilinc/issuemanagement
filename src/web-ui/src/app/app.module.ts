@@ -6,7 +6,7 @@ import {AppLayoutComponent} from "./_layout/app-layout/app-layout.component";
 import {FooterComponent, SidebarComponent} from "./_layout";
 import {AppComponent} from "./app.component";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {HeaderComponent} from "./_layout/header/header.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
@@ -18,6 +18,14 @@ import {IssueService} from "./services/shared/issue.service";
 import {UserService} from "./services/shared/user.service";
 import {IssueHistoryService} from "./services/shared/issue.history.service";
 import {NotfoundComponent} from "./shared/notfound/notfound.component";
+import {JwtInterceptor} from "./security/jwt.interceptor";
+import {AuthenticationService} from "./security/authentication.service";
+import {AuthGuard} from "./security/auth.guard";
+import {ErrorInterceptor} from "./security/authentication.interceptor";
+import {LoginComponent} from './login/login.component';
+import {RegisterComponent} from './register/register.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ToastNoAnimation, ToastNoAnimationModule, ToastrModule} from "ngx-toastr";
 
 export const createTranslateLoader = (http: HttpClient) => {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -30,10 +38,14 @@ export const createTranslateLoader = (http: HttpClient) => {
     SidebarComponent,
     HeaderComponent,
     FooterComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     NgxDatatableModule,
@@ -43,6 +55,12 @@ export const createTranslateLoader = (http: HttpClient) => {
     ModalModule.forRoot(),
     PaginationModule.forRoot(),
     BsDatepickerModule.forRoot(),
+    ToastNoAnimationModule,
+    ToastrModule.forRoot({
+      toastComponent: ToastNoAnimation,
+      maxOpened: 1,
+      autoDismiss: true
+    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -56,7 +74,11 @@ export const createTranslateLoader = (http: HttpClient) => {
     ProjectService,
     IssueService,
     UserService,
-    IssueHistoryService
+    IssueHistoryService,
+    AuthenticationService,
+    AuthGuard,
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi:true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi:true},
   ],
   bootstrap: [AppComponent]
 })
