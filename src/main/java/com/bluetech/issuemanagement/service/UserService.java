@@ -1,5 +1,6 @@
 package com.bluetech.issuemanagement.service;
 
+import com.bluetech.issuemanagement.dto.RegistrationRequest;
 import com.bluetech.issuemanagement.dto.UserDto;
 import com.bluetech.issuemanagement.entity.User;
 import com.bluetech.issuemanagement.util.TPage;
@@ -24,5 +25,7 @@ public interface UserService {
     UserDto update(Long id, UserDto userDto);
 
     UserDto save(UserDto userDto);
+
+    Boolean register(RegistrationRequest registrationRequest);
 
 }
