@@ -5,10 +5,10 @@ import {IssueDetailComponent} from "./issue-detail/issue-detail.component";
 
 const routes: Routes = [
   {
-    path: '',  component: IssueComponent
+    path: '', component: IssueComponent
   },
   {
-    path: 'issue-detail/:id',  component: IssueDetailComponent
+    path: 'issue-detail/:id', component: IssueDetailComponent
   }
 ];
 
@@ -16,4 +16,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class IssueRoutingModule { }
+export class IssueRoutingModule {
+}

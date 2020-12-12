@@ -18,4 +18,5 @@ import {IssueDetailComponent} from './issue-detail/issue-detail.component';
   ],
   providers: [IssueService]
 })
-export class IssueModule { }
+export class IssueModule {
+}

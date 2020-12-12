@@ -31,7 +31,7 @@ public class IssueHistoryServiceImpl implements IssueHistoryService {
 
     @Override
     public IssueHistory save(IssueHistory issueHistory) {
-        if(null == issueHistory.getDate()){
+        if (null == issueHistory.getDate()) {
             throw new IllegalArgumentException("Issue history date can not be null");
         }
 
@@ -52,7 +52,7 @@ public class IssueHistoryServiceImpl implements IssueHistoryService {
     @Override
     public TPage<IssueHistoryDto> getAllPageable(Pageable pageable) {
         Page<IssueHistory> data = issueHistoryRepository.findAll(pageable);
-        return new TPage<IssueHistoryDto>(data, Arrays.asList( modelMapper.map( data.getContent() , IssueHistoryDto[].class) ));
+        return new TPage<IssueHistoryDto>(data, Arrays.asList(modelMapper.map(data.getContent(), IssueHistoryDto[].class)));
     }
 
     @Override
@@ -63,7 +63,7 @@ public class IssueHistoryServiceImpl implements IssueHistoryService {
 
     @Override
     public void addHistory(Long id, Issue issueDb) {
-        IssueHistory history=new IssueHistory();
+        IssueHistory history = new IssueHistory();
         history.setIssue(issueDb);
         history.setAssignee(issueDb.getAssignee());
         history.setDate(issueDb.getDate());

@@ -4,7 +4,7 @@ import {ProjectComponent} from "./project.component";
 
 const routes: Routes = [
   {
-    path: '',  component: ProjectComponent
+    path: '', component: ProjectComponent
   }
 ];
 
@@ -12,4 +12,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ProjectRoutingModule { }
+export class ProjectRoutingModule {
+}

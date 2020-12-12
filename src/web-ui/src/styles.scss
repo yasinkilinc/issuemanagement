@@ -4,6 +4,7 @@
 @import '~@swimlane/ngx-datatable/index.css';
 @import '~@swimlane/ngx-datatable/themes/bootstrap.css';
 @import '~@swimlane/ngx-datatable/assets/icons.css';
+
 body {
   margin: 0;
   font-size: 0.9375rem;
@@ -46,11 +47,13 @@ $loader-img: url(/assets/images/loading.gif);
   opacity: 0.7;
   background: $loader-img no-repeat center center;
   z-index: 100;
+
   .backdrop {
     background: none !important;
     border-radius: 0px !important;
     margin-bottom: 10px;
   }
+
   .spinner-three-bounce {
     display: none;
   }

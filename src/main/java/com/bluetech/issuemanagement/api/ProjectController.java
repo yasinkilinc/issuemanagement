@@ -37,13 +37,13 @@ public class ProjectController {
     @Operation(summary = "Get All By Pagination Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the Project",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = TPage.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = TPage.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid id Project",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "Project not found",
-                    content = @Content) })
-    public ResponseEntity<TPage<ProjectDto>> getAllByPagination(Pageable pageable){
+                    content = @Content)})
+    public ResponseEntity<TPage<ProjectDto>> getAllByPagination(Pageable pageable) {
         TPage<ProjectDto> allPageable = projectServiceImpl.getAllPageable(pageable);
         return ResponseEntity.ok(allPageable);
     }
@@ -52,13 +52,13 @@ public class ProjectController {
     @Operation(summary = "Get All Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the Project",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = List.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = List.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid id Project",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "Project not found",
-                    content = @Content) })
-    public ResponseEntity<List<ProjectDto>> getAll(){
+                    content = @Content)})
+    public ResponseEntity<List<ProjectDto>> getAll() {
         List<ProjectDto> allPageable = projectServiceImpl.getAll();
         return ResponseEntity.ok(allPageable);
     }
@@ -67,13 +67,13 @@ public class ProjectController {
     @Operation(summary = "Get By Id Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the Project",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = IssueDto.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = IssueDto.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid id Project",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "Project not found",
-                    content = @Content) })
-    public ResponseEntity<ProjectDto> getById(@PathVariable("id") Long id){
+                    content = @Content)})
+    public ResponseEntity<ProjectDto> getById(@PathVariable("id") Long id) {
         ProjectDto projectDto = projectServiceImpl.getById(id);
         return ResponseEntity.ok(projectDto);
     }
@@ -82,13 +82,13 @@ public class ProjectController {
     @Operation(summary = "Get By Id Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the Project",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = IssueDto.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = IssueDto.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid id Project",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "Project not found",
-                    content = @Content) })
-    public ResponseEntity<ProjectDto> getByIdV2(@PathVariable("id") Long id){
+                    content = @Content)})
+    public ResponseEntity<ProjectDto> getByIdV2(@PathVariable("id") Long id) {
         ProjectDto projectDto = projectServiceImpl.getById(id);
         return ResponseEntity.ok(projectDto);
     }
@@ -97,13 +97,13 @@ public class ProjectController {
     @Operation(summary = "Create Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the Project",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = IssueDto.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = IssueDto.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid id Project",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "Project not found",
-                    content = @Content) })
-    public ResponseEntity<ProjectDto> createProject(@Valid @RequestBody ProjectDto project){
+                    content = @Content)})
+    public ResponseEntity<ProjectDto> createProject(@Valid @RequestBody ProjectDto project) {
         return ResponseEntity.ok(projectServiceImpl.save(project));
     }
 
@@ -111,13 +111,13 @@ public class ProjectController {
     @Operation(summary = "Update Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the Project",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = IssueDto.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = IssueDto.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid id Project",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "Project not found",
-                    content = @Content) })
-    public ResponseEntity<ProjectDto> updateProject(@PathVariable("id") Long id,  @Valid @RequestBody ProjectDto project){
+                    content = @Content)})
+    public ResponseEntity<ProjectDto> updateProject(@PathVariable("id") Long id, @Valid @RequestBody ProjectDto project) {
         return ResponseEntity.ok(projectServiceImpl.update(id, project));
     }
 
@@ -125,14 +125,14 @@ public class ProjectController {
     @Operation(summary = "Delete Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the Project",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = IssueDto.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = IssueDto.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid id Project",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "Project not found",
-                    content = @Content) })
-    public ResponseEntity<Boolean> delete(@PathVariable("id") Long id){
-       return ResponseEntity.ok(projectServiceImpl.delete(id));
+                    content = @Content)})
+    public ResponseEntity<Boolean> delete(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(projectServiceImpl.delete(id));
     }
 
 }

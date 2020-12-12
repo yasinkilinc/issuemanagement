@@ -8,15 +8,15 @@ export class IssueHistoryService {
 
   private USER_PATH = "/issue/history";
 
-  constructor(private apiService: ApiService ){
+  constructor(private apiService: ApiService) {
   }
 
-  getAll() : Observable<any>{
+  getAll(): Observable<any> {
     return this.apiService.get(this.USER_PATH).pipe(map(
-      res =>{
-        if(res){
+      res => {
+        if (res) {
           return res;
-        }else{
+        } else {
           console.log(res);
           return {};
         }
@@ -24,12 +24,12 @@ export class IssueHistoryService {
     ));
   }
 
-  getById(id) : Observable<any>{
-    return this.apiService.get(this.USER_PATH,id).pipe(map(
-      res =>{
-        if(res){
+  getById(id): Observable<any> {
+    return this.apiService.get(this.USER_PATH, id).pipe(map(
+      res => {
+        if (res) {
           return res;
-        }else{
+        } else {
           console.log(res);
           return {};
         }
@@ -37,12 +37,12 @@ export class IssueHistoryService {
     ));
   }
 
-  createUserHistory(user) : Observable<any>{
-    return this.apiService.post(this.USER_PATH ,user).pipe(map(
-      res =>{
-        if(res){
+  createUserHistory(user): Observable<any> {
+    return this.apiService.post(this.USER_PATH, user).pipe(map(
+      res => {
+        if (res) {
           return res;
-        }else{
+        } else {
           console.log(res);
           return {};
         }

@@ -13,7 +13,7 @@ export class ProjectService {
   }
 
   public getAllPageable(page): Observable<any> {
-    return this.apiService.get(this.PROJECT_PATH+'/pagination', page).pipe(map(
+    return this.apiService.get(this.PROJECT_PATH + '/pagination', page).pipe(map(
       res => {
         if (res) {
           return res;
@@ -65,7 +65,7 @@ export class ProjectService {
   }
 
   delete(id): Observable<any> {
-    return this.apiService.delete(this.PROJECT_PATH+'/'+id).pipe(map(
+    return this.apiService.delete(this.PROJECT_PATH + '/' + id).pipe(map(
       res => {
         if (res) {
           return res;

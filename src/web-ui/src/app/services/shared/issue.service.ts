@@ -16,7 +16,7 @@ export class IssueService {
   }
 
   getAll(page): Observable<any> {
-    return this.apiService.get(this.ISSUE_PATH + '/pagination', page ).pipe(map(
+    return this.apiService.get(this.ISSUE_PATH + '/pagination', page).pipe(map(
       res => {
         if (res) {
           return res;
@@ -28,6 +28,7 @@ export class IssueService {
       )
     );
   }
+
   getById(id): Observable<any> {
     return this.apiService.get(this.ISSUE_PATH, id).pipe(map(
       res => {
@@ -54,12 +55,12 @@ export class IssueService {
     );
   }
 
-  updateIssue(issue) : Observable<any>{
-    return this.apiService.put(this.ISSUE_PATH+ '/'+ issue.id ,issue).pipe(map(
-      res =>{
-        if(res){
+  updateIssue(issue): Observable<any> {
+    return this.apiService.put(this.ISSUE_PATH + '/' + issue.id, issue).pipe(map(
+      res => {
+        if (res) {
           return res;
-        }else{
+        } else {
           console.log(res);
           return {};
         }
@@ -68,7 +69,7 @@ export class IssueService {
   }
 
   delete(id): Observable<any> {
-    return this.apiService.delete(this.ISSUE_PATH +'/'+id).pipe(map(
+    return this.apiService.delete(this.ISSUE_PATH + '/' + id).pipe(map(
       res => {
         if (res) {
           return res;
@@ -80,12 +81,12 @@ export class IssueService {
     );
   }
 
-  getAllIssueStatuses():Observable<any>{
+  getAllIssueStatuses(): Observable<any> {
     return this.apiService.get(this.ISSUE_GET_STATUSES).pipe(map(
-      res =>{
-        if(res){
+      res => {
+        if (res) {
           return res;
-        }else{
+        } else {
           console.log(res);
           return {};
         }
@@ -93,7 +94,7 @@ export class IssueService {
     ));
   }
 
-  getByIdWithDetails(id: number):Observable<any>{
+  getByIdWithDetails(id: number): Observable<any> {
     return this.apiService.get(this.ISSUE_GET_BY_ID_DETAILS + id).pipe(map(
       res => {
         if (res) {

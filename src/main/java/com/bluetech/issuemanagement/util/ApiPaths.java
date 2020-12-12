@@ -7,15 +7,15 @@ public interface ApiPaths {
 
     String BASE_PATH = "/api";
 
-    interface IssueCtrl{
-        String CTRL = BASE_PATH + "/issue" ;
+    interface IssueCtrl {
+        String CTRL = BASE_PATH + "/issue";
     }
 
-    interface ProjectCtrl{
-        String CTRL = BASE_PATH + "/project" ;
+    interface ProjectCtrl {
+        String CTRL = BASE_PATH + "/project";
     }
 
-    interface UserCtrl{
-        String CTRL = BASE_PATH + "/users" ;
+    interface UserCtrl {
+        String CTRL = BASE_PATH + "/users";
     }
 }

@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        if(null == user.getEmail()){
+        if (null == user.getEmail()) {
             throw new IllegalArgumentException("User email can not be null");
         }
         return userRepository.save(user);
@@ -45,19 +45,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getById(Long id) {
         User user = userRepository.getOne(id);
-        return modelMapper.map( user, UserDto.class);
+        return modelMapper.map(user, UserDto.class);
     }
 
     @Override
     public TPage<UserDto> getAllPageable(Pageable pageable) {
         Page<User> data = userRepository.findAll(pageable);
-        return new TPage<UserDto>(data, Arrays.asList( modelMapper.map( data.getContent(), UserDto[].class )));
+        return new TPage<UserDto>(data, Arrays.asList(modelMapper.map(data.getContent(), UserDto[].class)));
     }
 
     @Override
     public List<UserDto> getAll() {
         List<User> data = userRepository.findAll();
-        return Arrays.asList( modelMapper.map( data, UserDto[].class ));
+        return Arrays.asList(modelMapper.map(data, UserDto[].class));
     }
 
     @Override
@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
     public UserDto save(UserDto userDto) {
         User userDb = userRepository.getOne(userDto.getId());
 
-        if(userDb != null ){
+        if (userDb != null) {
             throw new IllegalArgumentException("Project code already exists");
         }
 
@@ -94,13 +94,13 @@ public class UserServiceImpl implements UserService {
     public UserDto update(Long id, UserDto userDto) {
         User userDb = userRepository.getOne(id);
 
-        if(userDb == null ){
+        if (userDb == null) {
             throw new IllegalArgumentException("User does not exist id: " + id);
         }
 
-        userDb.setNameSurname( userDto.getNameSurname() );
+        userDb.setNameSurname(userDto.getNameSurname());
 
-        return modelMapper.map( userRepository.save(userDb), UserDto.class);
+        return modelMapper.map(userRepository.save(userDb), UserDto.class);
     }
 
     @Transactional

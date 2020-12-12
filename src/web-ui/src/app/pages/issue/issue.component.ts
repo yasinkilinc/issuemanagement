@@ -25,7 +25,7 @@ export class IssueComponent implements OnInit {
               private cdr: ChangeDetectorRef) {
   }
 
-  ngAfterViewChecked(){
+  ngAfterViewChecked() {
     //your code to update the model
     this.cdr.detectChanges();
   }
@@ -42,7 +42,7 @@ export class IssueComponent implements OnInit {
   }
 
   private loadProjects() {
-    this.projectService.getAll().subscribe( response => {
+    this.projectService.getAll().subscribe(response => {
       this.projectOptions = response;
     });
   }
@@ -71,7 +71,7 @@ export class IssueComponent implements OnInit {
     this.modalRef.hide();
   }
 
-  saveIssue(){
+  saveIssue() {
     this.issueService.createIssue(this.issueForm.value).subscribe(resp => {
       this.setPage({offset: 0, limit: 10});
       this.closeAndResetModal();

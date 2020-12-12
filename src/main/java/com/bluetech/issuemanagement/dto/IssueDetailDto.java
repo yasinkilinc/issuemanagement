@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(description =  "Issue Data Transfer Object")
+@Schema(description = "Issue Data Transfer Object")
 public class IssueDetailDto {
     @Schema(required = true, description = "ID")
     private Long id;

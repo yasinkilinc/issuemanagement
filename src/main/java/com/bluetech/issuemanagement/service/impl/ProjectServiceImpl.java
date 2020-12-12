@@ -35,7 +35,7 @@ public class ProjectServiceImpl implements ProjectService {
     public ProjectDto save(ProjectDto projectDto) {
         Project projectCheck = projectRepository.getByProjectCode(projectDto.getProjectCode());
 
-        if(projectCheck != null ){
+        if (projectCheck != null) {
             throw new IllegalArgumentException("Project code already exists");
         }
 
@@ -50,7 +50,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ProjectDto getById(Long id) {
         Project project = projectRepository.getOne(id);
-        return modelMapper.map( project, ProjectDto.class);
+        return modelMapper.map(project, ProjectDto.class);
     }
 
     @Override
@@ -66,13 +66,13 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public TPage<ProjectDto> getAllPageable(Pageable pageable) {
         Page<Project> data = projectRepository.findAll(pageable);
-        return new TPage<ProjectDto>( data ,Arrays.asList( modelMapper.map( data.getContent(),ProjectDto[].class)));
+        return new TPage<ProjectDto>(data, Arrays.asList(modelMapper.map(data.getContent(), ProjectDto[].class)));
     }
 
     @Override
     public List<ProjectDto> getAll() {
         List<Project> data = projectRepository.findAll();
-        return Arrays.asList( modelMapper.map( data, ProjectDto[].class));
+        return Arrays.asList(modelMapper.map(data, ProjectDto[].class));
     }
 
     @Override
@@ -90,18 +90,18 @@ public class ProjectServiceImpl implements ProjectService {
     public ProjectDto update(Long id, ProjectDto projectDto) {
         Project projectDb = projectRepository.getOne(id);
 
-        if(projectDb == null ){
+        if (projectDb == null) {
             throw new IllegalArgumentException("Project does not exist id: " + id);
         }
 
         Project projectCheck = projectRepository.getByProjectCodeAndIdNot(projectDto.getProjectCode(), id);
-        if(projectCheck != null){
+        if (projectCheck != null) {
             throw new IllegalArgumentException("Project code already exists");
         }
-        projectDb.setProjectCode( projectDto.getProjectCode() );
-        projectDb.setProjectName( projectDto.getProjectName() );
+        projectDb.setProjectCode(projectDto.getProjectCode());
+        projectDb.setProjectName(projectDto.getProjectName());
 
-        return modelMapper.map( projectRepository.save(projectDb), ProjectDto.class);
+        return modelMapper.map(projectRepository.save(projectDb), ProjectDto.class);
     }
 
 

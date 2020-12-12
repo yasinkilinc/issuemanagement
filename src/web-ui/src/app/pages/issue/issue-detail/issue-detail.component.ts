@@ -31,16 +31,17 @@ export class IssueDetailComponent implements OnInit {
               private route: ActivatedRoute,
               private projectService: ProjectService,
               private userService: UserService,
-              private issueService:IssueService,
-              private formBuilder: FormBuilder) { }
+              private issueService: IssueService,
+              private formBuilder: FormBuilder) {
+  }
 
-  ngAfterViewChecked(){
+  ngAfterViewChecked() {
     //your code to update the model
     this.cdr.detectChanges();
   }
 
   ngOnInit(): void {
-    this.sub = this.route.params.subscribe( params => {
+    this.sub = this.route.params.subscribe(params => {
       this.id = +params['id'];
       this.loadIssueDetails();
     });
@@ -69,26 +70,26 @@ export class IssueDetailComponent implements OnInit {
   }
 
   private loadAssignee() {
-    this.userService.getAll().subscribe( response => {
+    this.userService.getAll().subscribe(response => {
       this.assigneeOptions = response;
     });
   }
 
   private loadProjects() {
-    this.projectService.getAll().subscribe( response => {
+    this.projectService.getAll().subscribe(response => {
       this.projectOptions = response;
     });
   }
 
   private loadIssueDetails() {
-    this.issueService.getByIdWithDetails(this.id).subscribe( response => {
+    this.issueService.getByIdWithDetails(this.id).subscribe(response => {
       this.issueDetailForm = this.createIssueDetailFormGroup(response);
       this.datatable_rows = response['issueHistories'];
     });
   }
 
-  saveIssue(){
-    this.issueService.updateIssue(this.issueDetailForm.value).subscribe(response=>{
+  saveIssue() {
+    this.issueService.updateIssue(this.issueDetailForm.value).subscribe(response => {
       this.issueDetailForm = this.createIssueDetailFormGroup(response);
       this.datatable_rows = response['issueHistories'];
     });
@@ -101,9 +102,9 @@ export class IssueDetailComponent implements OnInit {
       details: response['details'],
       date: this.fromJsonDate(response['date']),
       issueStatus: response['issueStatus'],
-      assignee_id: response['assignee']? response['assignee']['id'] : '',
+      assignee_id: response['assignee'] ? response['assignee']['id'] : '',
       project_id: response['project'] ? response['project']['id'] : '',
-      project_manager: response['project'] && response['project']['manager'] ? response['project']['manager']['nameSurname']: '',
+      project_manager: response['project'] && response['project']['manager'] ? response['project']['manager']['nameSurname'] : '',
     });
   }
 

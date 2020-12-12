@@ -19,7 +19,7 @@ export class ProjectComponent implements OnInit {
   page = new Page();
   cols = [];
   rows = [];
-  managerOptions =[];
+  managerOptions = [];
 
   @ViewChild('tplProjectDeleteCell') tplProjectDeleteCell: TemplateRef<any>;
 
@@ -57,7 +57,7 @@ export class ProjectComponent implements OnInit {
     ];
   }
 
-  ngAfterViewChecked(){
+  ngAfterViewChecked() {
     //your code to update the model
     this.cdr.detectChanges();
   }
@@ -71,7 +71,7 @@ export class ProjectComponent implements OnInit {
       'managerId': [null, [Validators.required]]
     });
 
-    this.userService.getAll().subscribe( res => {
+    this.userService.getAll().subscribe(res => {
       this.managerOptions = res;
       console.log(res);
     });
@@ -98,21 +98,21 @@ export class ProjectComponent implements OnInit {
     )
   }
 
-  showProjectDeleteConfirmation(value){
-    const modal = this.modalService.show( ConfirmationComponent );
+  showProjectDeleteConfirmation(value) {
+    const modal = this.modalService.show(ConfirmationComponent);
     (<ConfirmationComponent>modal.content).showConfirmation(
       'Delete Confirmation',
       'Are you sure for delete project?'
     );
 
     (<ConfirmationComponent>modal.content).onClose.subscribe(result => {
-      if(result ===true){
-        this.projectService.delete(value).subscribe( response => {
-          if(response === true){
+      if (result === true) {
+        this.projectService.delete(value).subscribe(response => {
+          if (response === true) {
             this.setPage({offset: 0, limit: 10})
           }
         });
-      }else if(result ===false){
+      } else if (result === false) {
       }
     });
   }

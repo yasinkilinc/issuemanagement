@@ -11,21 +11,22 @@ import {RegisterComponent} from "./register/register.component";
 
 const routes: Routes = [
   {
-    path:'',component: AppLayoutComponent, canActivate: [AuthGuard],
+    path: '', component: AppLayoutComponent, canActivate: [AuthGuard],
     children: [
-      { path: '', pathMatch: 'full', redirectTo: 'dashboard'},
-      { path: 'dashboard', loadChildren: ()=> DashboardModule },
-      { path: 'project', loadChildren: () => ProjectModule},
-      { path: 'issue', loadChildren: () => IssueModule}
+      {path: '', pathMatch: 'full', redirectTo: 'dashboard'},
+      {path: 'dashboard', loadChildren: () => DashboardModule},
+      {path: 'project', loadChildren: () => ProjectModule},
+      {path: 'issue', loadChildren: () => IssueModule}
     ]
   },
-  { path:'login',component: LoginComponent},
-  { path: 'register', component: RegisterComponent},
-  { path:'**',component: NotfoundComponent,}
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
+  {path: '**', component: NotfoundComponent,}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

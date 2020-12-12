@@ -19,7 +19,7 @@ public class TPage<T> {
     private Long totalElements;
     private List<T> content;
 
-    public TPage(Page page, List<T> list){
+    public TPage(Page page, List<T> list) {
         this.number = page.getNumber();
         this.size = page.getSize();
         this.sort = page.getSort();

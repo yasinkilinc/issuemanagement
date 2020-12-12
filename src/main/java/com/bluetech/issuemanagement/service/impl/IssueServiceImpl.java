@@ -61,7 +61,7 @@ public class IssueServiceImpl implements IssueService {
     @Override
     public IssueDto getById(Long id) {
         Issue issue = issueRepository.getOne(id);
-        return modelMapper.map( issue, IssueDto.class);
+        return modelMapper.map(issue, IssueDto.class);
     }
 
     public IssueDetailDto getByIdWithDetails(Long id) {
@@ -90,7 +90,7 @@ public class IssueServiceImpl implements IssueService {
     public IssueDetailDto update(Long id, IssueUpdateDto issue) {
         Issue issueDb = issueRepository.getOne(id);
         User user = userRepository.getOne(issue.getAssignee_id());
-        issueHistoryService.addHistory(id,issueDb);
+        issueHistoryService.addHistory(id, issueDb);
 
         issueDb.setAssignee(user);
         issueDb.setDate(issue.getDate());

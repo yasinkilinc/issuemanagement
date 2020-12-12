@@ -37,13 +37,13 @@ public class UserController {
     @Operation(summary = "Get All By Pagination Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the User",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = TPage.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = TPage.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid id User",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "User not found",
-                    content = @Content) })
-    public ResponseEntity<TPage<UserDto>> getAllByPagination(Pageable pageable){
+                    content = @Content)})
+    public ResponseEntity<TPage<UserDto>> getAllByPagination(Pageable pageable) {
         TPage<UserDto> allPageable = userServiceImpl.getAllPageable(pageable);
         return ResponseEntity.ok(allPageable);
     }
@@ -52,13 +52,13 @@ public class UserController {
     @Operation(summary = "Get All Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the User",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = TPage.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = TPage.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid id User",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "User not found",
-                    content = @Content) })
-    public ResponseEntity<List<UserDto>> getAll(){
+                    content = @Content)})
+    public ResponseEntity<List<UserDto>> getAll() {
         List<UserDto> allPageable = userServiceImpl.getAll();
         return ResponseEntity.ok(allPageable);
     }
@@ -67,13 +67,13 @@ public class UserController {
     @Operation(summary = "Get By Id Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the User",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = IssueDto.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = IssueDto.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid id User",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "User not found",
-                    content = @Content) })
-    public ResponseEntity<UserDto> getById(@PathVariable("id") Long id){
+                    content = @Content)})
+    public ResponseEntity<UserDto> getById(@PathVariable("id") Long id) {
         UserDto userDto = userServiceImpl.getById(id);
         return ResponseEntity.ok(userDto);
     }
@@ -82,13 +82,13 @@ public class UserController {
     @Operation(summary = "Get By Id Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the User",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = IssueDto.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = IssueDto.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid id User",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "User not found",
-                    content = @Content) })
-    public ResponseEntity<UserDto> getByIdV2(@PathVariable("id") Long id){
+                    content = @Content)})
+    public ResponseEntity<UserDto> getByIdV2(@PathVariable("id") Long id) {
         UserDto userDto = userServiceImpl.getById(id);
         return ResponseEntity.ok(userDto);
     }
@@ -97,13 +97,13 @@ public class UserController {
     @Operation(summary = "Create Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the User",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = IssueDto.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = IssueDto.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid id User",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "User not found",
-                    content = @Content) })
-    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto user){
+                    content = @Content)})
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto user) {
         return ResponseEntity.ok(userServiceImpl.save(user));
     }
 
@@ -111,13 +111,13 @@ public class UserController {
     @Operation(summary = "Update Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the User",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = IssueDto.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = IssueDto.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid id User",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "User not found",
-                    content = @Content) })
-    public ResponseEntity<UserDto> updateUser(@PathVariable("id") Long id,  @Valid @RequestBody UserDto user){
+                    content = @Content)})
+    public ResponseEntity<UserDto> updateUser(@PathVariable("id") Long id, @Valid @RequestBody UserDto user) {
         return ResponseEntity.ok(userServiceImpl.update(id, user));
     }
 
@@ -125,14 +125,14 @@ public class UserController {
     @Operation(summary = "Delete Operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Found the User",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = IssueDto.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = IssueDto.class))}),
             @ApiResponse(responseCode = "400", description = "Invalid id User",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "User not found",
-                    content = @Content) })
-    public ResponseEntity<Boolean> delete(@PathVariable("id") Long id){
-       return ResponseEntity.ok(userServiceImpl.delete(id));
+                    content = @Content)})
+    public ResponseEntity<Boolean> delete(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(userServiceImpl.delete(id));
     }
 
 }
